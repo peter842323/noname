@@ -143,7 +143,6 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			wangyun:['male','qun',4,['xinlianji','xinmoucheng']],
 			sunqian:['male','shu',3,['qianya','shuimeng']],
 			xizhicai:['male','wei',3,['tiandu','xianfu','chouce']],
-			quyi:['male','qun',4,['fuqi','jiaozi']],
 
 			luzhi:['male','wei',3,['qingzhongx','weijing']],
 			
@@ -3804,12 +3803,14 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					'step 1'
 					if(target.countCards('h','shan')){
 						player.viewHandcards(target);
-						player.useCard({name:'sha',isCard:true},target,false);
+						if(player.canUse({name:'sha',isCard:true},target,false)) player.useCard({name:'sha',isCard:true},target,false);
 						player.storage.weikui2=target;
 						player.addTempSkill('weikui2');
 					}
 					else{
-						player.discardPlayerCard(target,'visible',true,'h');
+						player.discardPlayerCard(target,'visible',true,'h').set('ai',function(button){
+							return get.value(button.link,_status.event.target);
+						});
 					}
 				},
 				ai:{
@@ -8691,7 +8692,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						direct:true,
 						filter:function(event,player){
 							if(!player.countCards(player.hasSkill('fenxin_nei')?'he':'h',function(card){
-								if(_status.connectMode&&get.position(card)=='h') return true;
+								if(player.hasSkill('fenxin_nei')||(_status.connectMode&&get.position(card)=='h')) return true;
 								return get.color(card)=='black';
 							})) return false;
 							return (event.player.hp>=player.hp||player.hasSkill('fenxin_fan'))&&player!=event.player;
@@ -8728,7 +8729,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						trigger:{player:'damageBegin2'},
 						filter:function(event,player){
 							if(!player.countCards(player.hasSkill('fenxin_nei')?'he':'h',function(card){
-								if(_status.connectMode&&get.position(card)=='h') return true;
+								if(player.hasSkill('fenxin_nei')||(_status.connectMode&&get.position(card)=='h')) return true;
 								return get.color(card)=='red';
 							})) return false;
 							return event.source&&(event.source.hp>=player.hp||player.hasSkill('fenxin_zhong'))&&player!=event.source;
@@ -14862,7 +14863,6 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			wangyun:'王允',
 			sunqian:'孙乾',
 			xizhicai:'戏志才',
-			quyi:'麴义',
 			liuye:'刘晔',
 			beimihu:'卑弥呼',
 			luzhi:'鲁芝',

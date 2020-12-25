@@ -1110,6 +1110,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 								list.push(['基本','','sha']);
 								list.push(['基本','','sha','fire']);
 								list.push(['基本','','sha','thunder']);
+								list.push(['基本','','sha','ice']);
 							}
 							else if(get.type(name)=='trick') list.push(['锦囊','',name]);
 							else if(get.type(name)=='basic') list.push(['基本','',name]);
@@ -3770,6 +3771,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 								list.push(['基本','','sha']);
 								list.push(['基本','','sha','fire']);
 								list.push(['基本','','sha','thunder']);
+								list.push(['基本','','sha','ice']);
 							}
 							else if(get.type(name)=='trick') list.push(['锦囊','',name]);
 							else if(get.type(name)=='basic') list.push(['基本','',name]);
@@ -4323,7 +4325,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						event.finish();
 						return;
 					}
-					var list=['sha','sha','sha','shan','tao','jiu'];
+					var list=['sha','sha','sha','sha','shan','tao','jiu'];
 					if(player.storage.jiaozhao1){
 						list=list.concat(['taoyuan','wugu','juedou','huogong','jiedao','tiesuo','guohe','shunshou','wuzhong','wanjian','nanman']);
 					}
@@ -4334,6 +4336,9 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 							}
 							else if(i==2){
 								list[i]=['基本','',list[i],'thunder'];
+							}
+							else if(i==3){
+								list[i]=['基本','',list[i],'ice'];
 							}
 							else{
 								list[i]=['基本','',list[i]];
@@ -7152,6 +7157,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 							list.push(['基本','','sha']);
 							list.push(['基本','','sha','fire']);
 							list.push(['基本','','sha','thunder']);
+							list.push(['基本','','sha','ice']);
 						}
 						if(!player.storage.huomo.tao&&event.filterCard({name:'tao'},player,event)){
 							list.push(['基本','','tao']);
@@ -11466,7 +11472,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			yuce:{
 				audio:2,
 				audioname:['re_manchong'],
-				trigger:{player:'damageAfter'},
+				trigger:{player:'damageEnd'},
 				direct:true,
 				filter:function(event,player){
 					return player.countCards('h')>0&&player.isDamaged();
@@ -12054,7 +12060,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 		},
 		characterReplace:{
 			caozhi:['re_caozhi','caozhi'],
-			zhangchunhua:['zhangchunhua','jin_zhangchunhua','mini_zhangchunhua'],
+			zhangchunhua:['jin_zhangchunhua','zhangchunhua','mini_zhangchunhua'],
 			yujin:['yujin_yujin','re_yujin','ol_yujin','xin_yujin','yujin'],
 			xushu:['re_xushu','xin_xushu','xushu'],
 			fazheng:['xin_fazheng','fazheng'],
@@ -12608,7 +12614,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			zongxuan_info:'当你的牌因弃置而进入弃牌堆时，你可以将其按任意顺序置于牌堆顶',
 			zhiyan_info:'结束阶段，你可以令一名角色摸一张牌并展示之，若为装备牌，其使用此牌并回复一点体力。',
 			miji_info:'结束阶段，若你已受伤，则可以摸X张牌，然后可以将等量的牌交给一名其他角色（X为你已损失的体力值）。',
-			zhenlie_info:'当你成为其他角色使用牌的目标后，你可以失去一点体力并令此牌对你无效，然后弃置对方一张牌。',
+			zhenlie_info:'当你成为其他角色使用【杀】或普通锦囊牌的目标后，你可以失去一点体力并令此牌对你无效，然后弃置对方一张牌。',
 			chengxiang_info:'当你受到伤害后，你可以亮出牌堆顶的四张牌。然后获得其中任意数量点数之和不大于13的牌',
 			oldchengxiang_info:'当你受到伤害后，你可以亮出牌堆顶的四张牌。然后获得其中任意数量点数之和不大于12的牌',
 			renxin_info:'当体力值为1的一名其他角色受到伤害时，你可以将武将牌翻面并弃置一张装备牌，然后防止此伤害。',
